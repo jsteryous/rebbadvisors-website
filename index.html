@@ -730,11 +730,14 @@
 <body>
     <header>
         <nav>
-            <div class="logo">
+            <a href="index.html" class="logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.8rem;">
                 <img src="logo.png" alt="REBB Advisors Logo" class="logo-img">
                 <span>REBB ADVISORS</span>
+            </a>
+            <div style="display: flex; gap: 2rem; align-items: center;">
+                <a href="listings.html" style="color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.3s ease;">Listings</a>
+                <button class="nav-cta" onclick="scrollToContact()">Talk With Us</button>
             </div>
-            <button class="nav-cta" onclick="scrollToContact()">Talk With Us</button>
         </nav>
     </header>
 
