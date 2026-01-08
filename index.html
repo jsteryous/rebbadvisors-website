@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REBB Advisors | Business Brokerage & Advisory</title>
     <meta name="description" content="Expert business brokerage services. We guide business owners through successful exits and acquisitions with precision and care.">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -223,8 +230,8 @@
             transform: translateY(-2px);
         }
 
-        /* Stats Section */
-        .stats {
+        /* Value Props */
+        .value-props {
             max-width: 500px;
             background: white;
             padding: 3rem 2.5rem;
@@ -233,7 +240,7 @@
             position: relative;
         }
 
-        .stats::before {
+        .value-props::before {
             content: '';
             position: absolute;
             top: 0;
@@ -243,33 +250,32 @@
             background: var(--secondary);
         }
 
-        .stat-item {
+        .value-item {
             margin-bottom: 2rem;
         }
 
-        .stat-item:last-child {
+        .value-item:last-child {
             margin-bottom: 0;
         }
 
-        .stat-number {
+        .value-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--secondary);
-            line-height: 1;
+            line-height: 1.2;
             margin-bottom: 0.5rem;
         }
 
-        .stat-label {
+        .value-description {
             font-size: 0.95rem;
             color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 400;
+            line-height: 1.6;
+            font-weight: 300;
         }
 
-        /* Services Section */
-        .services {
+        /* Education Section */
+        .education {
             padding: 8rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
@@ -303,15 +309,16 @@
             max-width: 700px;
             margin: 0 auto;
             font-weight: 300;
+            line-height: 1.8;
         }
 
-        .services-grid {
+        .education-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 3rem;
         }
 
-        .service-card {
+        .education-card {
             padding: 3rem 2.5rem;
             background: white;
             border: 1px solid rgba(255, 59, 59, 0.15);
@@ -319,7 +326,7 @@
             position: relative;
         }
 
-        .service-card::before {
+        .education-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -330,22 +337,22 @@
             transition: width 0.4s ease;
         }
 
-        .service-card:hover {
+        .education-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
         }
 
-        .service-card:hover::before {
+        .education-card:hover::before {
             width: 100%;
         }
 
-        .service-icon {
+        .education-icon {
             font-size: 3rem;
             margin-bottom: 1.5rem;
             color: var(--secondary);
         }
 
-        .service-title {
+        .education-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.8rem;
             font-weight: 500;
@@ -353,65 +360,147 @@
             margin-bottom: 1rem;
         }
 
-        .service-description {
+        .education-description {
             font-size: 1rem;
             color: var(--text-light);
             line-height: 1.8;
             font-weight: 300;
+            margin-bottom: 1.5rem;
         }
 
-        /* Process Section */
-        .process {
+        .education-points {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .education-points li {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.8;
+            font-weight: 400;
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .education-points li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* Timeline Section */
+        .timeline {
             padding: 8rem 2rem;
             background: var(--primary);
             color: white;
         }
 
-        .process .section-label {
+        .timeline .section-label {
             color: var(--secondary);
         }
 
-        .process .section-title {
+        .timeline .section-title {
             color: white;
         }
 
-        .process .section-subtitle {
+        .timeline .section-subtitle {
             color: rgba(255, 255, 255, 0.7);
         }
 
-        .process-steps {
-            max-width: 1400px;
+        .timeline-container {
+            max-width: 900px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
         }
 
-        .process-step {
+        .timeline-item {
+            margin-bottom: 4rem;
+            padding-left: 3rem;
             position: relative;
-            padding-top: 4rem;
         }
 
-        .step-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 5rem;
-            font-weight: 600;
-            color: rgba(255, 59, 59, 0.3);
-            line-height: 1;
-            margin-bottom: 1rem;
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: rgba(255, 59, 59, 0.3);
         }
 
-        .step-title {
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--secondary);
+        }
+
+        .timeline-phase {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
             font-weight: 500;
             margin-bottom: 1rem;
-            color: var(--secondary);
+            color: white;
         }
 
-        .step-description {
-            font-size: 0.95rem;
+        .timeline-description {
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* How We Help Section */
+        .how-we-help {
+            padding: 8rem 2rem;
+            background: #f5f5f5;
+        }
+
+        .help-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .help-card {
+            padding: 2.5rem 2rem;
+            background: white;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .help-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .help-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
             line-height: 1.8;
             font-weight: 300;
         }
@@ -587,7 +676,7 @@
                 text-align: center;
             }
 
-            .stats {
+            .value-props {
                 max-width: 100%;
                 margin: 0 auto;
             }
@@ -596,12 +685,12 @@
                 justify-content: center;
             }
 
-            .services-grid {
+            .education-grid {
                 grid-template-columns: 1fr;
             }
 
-            .process-steps {
-                grid-template-columns: repeat(2, 1fr);
+            .help-grid {
+                grid-template-columns: 1fr;
             }
 
             .footer-content {
@@ -621,10 +710,6 @@
 
             .cta-title {
                 font-size: 2.5rem;
-            }
-
-            .process-steps {
-                grid-template-columns: 1fr;
             }
 
             .hero-cta {
@@ -649,7 +734,7 @@
                 <img src="logo.png" alt="REBB Advisors Logo" class="logo-img">
                 <span>REBB ADVISORS</span>
             </div>
-            <button class="nav-cta" onclick="scrollToContact()">Get Started</button>
+            <button class="nav-cta" onclick="scrollToContact()">Talk With Us</button>
         </nav>
     </header>
 
@@ -657,109 +742,173 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>
-                    Your Business Deserves
-                    <strong>Exceptional Guidance</strong>
+                    Selling or Buying a Business?
+                    <strong>Here's What You Need to Know</strong>
                 </h1>
-                <p>We specialize in guiding business owners through successful exits and strategic acquisitions with precision, discretion, and unmatched expertise.</p>
+                <p>Business transactions are complex, emotional, and high-stakes. Whether you're selling the company you built or acquiring your next opportunity, understanding the process makes all the difference.</p>
                 <div class="hero-cta">
-                    <button class="btn-primary" onclick="scrollToContact()">Schedule Consultation</button>
-                    <button class="btn-secondary" onclick="scrollToServices()">Our Services</button>
+                    <button class="btn-primary" onclick="scrollToContact()">Free Consultation</button>
+                    <button class="btn-secondary" onclick="scrollToEducation()">Learn More</button>
                 </div>
             </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number">$250M+</div>
-                    <div class="stat-label">Transactions Closed</div>
+            <div class="value-props">
+                <div class="value-item">
+                    <div class="value-title">Clean Exits</div>
+                    <div class="value-description">Leave your business in the right hands while protecting your legacy and employees.</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">150+</div>
-                    <div class="stat-label">Successful Exits</div>
+                <div class="value-item">
+                    <div class="value-title">Maximum Value & Privacy</div>
+                    <div class="value-description">Connect with serious, qualified buyers while maintaining confidentiality throughout the process.</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">98%</div>
-                    <div class="stat-label">Client Satisfaction</div>
+                <div class="value-item">
+                    <div class="value-title">For Buyers</div>
+                    <div class="value-description">Access cash-flowing businesses with verified financials and growth potential.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="services" id="services">
+    <section class="education" id="education">
         <div class="section-header">
-            <div class="section-label">What We Do</div>
-            <h2 class="section-title">Comprehensive Business Solutions</h2>
-            <p class="section-subtitle">From valuation to closing, we provide end-to-end support throughout your business transaction journey.</p>
+            <div class="section-label">Understanding Business Transactions</div>
+            <h2 class="section-title">What Sellers & Buyers Should Know</h2>
+            <p class="section-subtitle">Every successful transaction starts with education. Here are the key factors that determine whether a deal happens and how much value changes hands.</p>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3 class="service-title">Business Valuation</h3>
-                <p class="service-description">Expert analysis to determine your business's true market value using industry-leading methodologies and comprehensive financial assessment.</p>
+        <div class="education-grid">
+            <div class="education-card">
+                <div class="education-icon">💰</div>
+                <h3 class="education-title">What Makes a Business Valuable?</h3>
+                <p class="education-description">Your business's value isn't just about revenue. Buyers evaluate several critical factors:</p>
+                <ul class="education-points">
+                    <li>Consistent, predictable cash flow over multiple years</li>
+                    <li>Owner independence (does it run without you?)</li>
+                    <li>Customer concentration and retention rates</li>
+                    <li>Quality of financial records and systems</li>
+                    <li>Market position and competitive advantages</li>
+                    <li>Growth potential and scalability</li>
+                </ul>
             </div>
-            <div class="service-card">
-                <div class="service-icon">🤝</div>
-                <h3 class="service-title">Sell-Side Advisory</h3>
-                <p class="service-description">Strategic guidance for business owners ready to exit, including buyer identification, negotiation support, and deal structuring.</p>
+
+            <div class="education-card">
+                <div class="education-icon">⏰</div>
+                <h3 class="education-title">When Is the Right Time to Sell?</h3>
+                <p class="education-description">Timing significantly impacts your exit value. Consider selling when:</p>
+                <ul class="education-points">
+                    <li>Your business is showing consistent growth</li>
+                    <li>You have at least 3 years of clean financials</li>
+                    <li>Industry conditions are favorable</li>
+                    <li>You're not under pressure or desperate</li>
+                    <li>Operations don't depend entirely on you</li>
+                    <li>You have 12-18 months to prepare and execute</li>
+                </ul>
             </div>
-            <div class="service-card">
-                <div class="service-icon">🎯</div>
-                <h3 class="service-title">Buy-Side Advisory</h3>
-                <p class="service-description">Comprehensive support for buyers seeking the right acquisition opportunity, from target identification to due diligence.</p>
+
+            <div class="education-card">
+                <div class="education-icon">🔍</div>
+                <h3 class="education-title">What Buyers Really Look For</h3>
+                <p class="education-description">Understanding buyer priorities helps you position your business effectively:</p>
+                <ul class="education-points">
+                    <li>Verified financial performance and tax returns</li>
+                    <li>Clear reasons for sale (not hidden problems)</li>
+                    <li>Strong management team or documented processes</li>
+                    <li>Room for them to add value and grow</li>
+                    <li>Favorable lease terms and supplier relationships</li>
+                    <li>Clean legal structure and limited liabilities</li>
+                </ul>
             </div>
-            <div class="service-card">
-                <div class="service-icon">📈</div>
-                <h3 class="service-title">Exit Planning</h3>
-                <p class="service-description">Long-term strategic planning to maximize business value and ensure a smooth transition when you're ready to exit.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">⚖️</div>
-                <h3 class="service-title">Due Diligence</h3>
-                <p class="service-description">Thorough examination of financial, legal, and operational aspects to protect your interests throughout the transaction.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🔐</div>
-                <h3 class="service-title">Confidential Marketing</h3>
-                <p class="service-description">Discreet marketing strategies that protect your business identity while reaching qualified buyers in the market.</p>
+
+            <div class="education-card">
+                <div class="education-icon">🎯</div>
+                <h3 class="education-title">For Buyers: Finding the Right Deal</h3>
+                <p class="education-description">Buying a business requires careful evaluation beyond just the asking price:</p>
+                <ul class="education-points">
+                    <li>Verify all financial claims independently</li>
+                    <li>Understand why the seller is really exiting</li>
+                    <li>Assess the true time commitment required</li>
+                    <li>Identify transition risks and key dependencies</li>
+                    <li>Calculate realistic ROI based on your involvement</li>
+                    <li>Plan for working capital needs post-acquisition</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <section class="process">
+    <section class="timeline" id="timeline">
         <div class="section-header">
-            <div class="section-label">Our Process</div>
-            <h2 class="section-title">A Proven Approach to Success</h2>
-            <p class="section-subtitle">Our systematic methodology ensures optimal outcomes at every stage of your business transaction.</p>
+            <div class="section-label">The Transaction Timeline</div>
+            <h2 class="section-title">What to Expect: Start to Close</h2>
+            <p class="section-subtitle">Most business sales take 6-12 months from initial preparation to closing. Here's what happens at each stage.</p>
         </div>
-        <div class="process-steps">
-            <div class="process-step">
-                <div class="step-number">01</div>
-                <h3 class="step-title">Discovery</h3>
-                <p class="step-description">We begin with an in-depth consultation to understand your goals, timeline, and unique business circumstances.</p>
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-phase">Months 1-2</div>
+                <h3 class="timeline-title">Preparation & Valuation</h3>
+                <p class="timeline-description">Getting your house in order makes or breaks the deal. This phase involves organizing financial records, determining realistic market value, identifying issues that could derail a sale, and developing the positioning strategy. Most deals fail because sellers skip this crucial step.</p>
             </div>
-            <div class="process-step">
-                <div class="step-number">02</div>
-                <h3 class="step-title">Preparation</h3>
-                <p class="step-description">Comprehensive business assessment, valuation, and strategic positioning to maximize transaction value.</p>
+
+            <div class="timeline-item">
+                <div class="timeline-phase">Months 3-6</div>
+                <h3 class="timeline-title">Marketing & Finding Buyers</h3>
+                <p class="timeline-description">Confidential outreach to qualified buyers begins. This includes creating compelling marketing materials without revealing your identity, reaching out to strategic buyers in your industry, screening inquiries to protect confidentiality, and facilitating initial conversations with serious prospects. The goal is finding buyers who are both financially capable and genuinely interested.</p>
             </div>
-            <div class="process-step">
-                <div class="step-number">03</div>
-                <h3 class="step-title">Marketing</h3>
-                <p class="step-description">Confidential outreach to qualified buyers or sellers, leveraging our extensive network and market expertise.</p>
+
+            <div class="timeline-item">
+                <div class="timeline-phase">Months 7-9</div>
+                <h3 class="timeline-title">Negotiations & Due Diligence</h3>
+                <p class="timeline-description">Once you have interested buyers, the real work begins. This phase involves negotiating price, terms, and structure, providing detailed financial and operational data, addressing buyer concerns and questions, and working through legal and financial verification. Expect this to be intensive and sometimes emotionally challenging.</p>
             </div>
-            <div class="process-step">
-                <div class="step-number">04</div>
-                <h3 class="step-title">Closing</h3>
-                <p class="step-description">Expert negotiation, due diligence management, and seamless transaction coordination to successful completion.</p>
+
+            <div class="timeline-item">
+                <div class="timeline-phase">Months 10-12</div>
+                <h3 class="timeline-title">Closing & Transition</h3>
+                <p class="timeline-description">The final phase brings everything together including finalizing legal documents and contracts, coordinating with attorneys and accountants, closing the financial transaction, and supporting the transition period. Even after closing, most sellers provide 30-90 days of transition support to ensure success.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-we-help">
+        <div class="help-content">
+            <div class="section-header">
+                <div class="section-label">How We Support You</div>
+                <h2 class="section-title">Guidance at Every Step</h2>
+                <p class="section-subtitle">We bridge the gap between buyers and sellers, handling the complex details so you can focus on running your business and making the right decision.</p>
+            </div>
+            <div class="help-grid">
+                <div class="help-card">
+                    <h3>Confidential Marketing</h3>
+                    <p>We protect your business identity while reaching qualified buyers. Your employees, customers, and competitors won't know you're considering a sale until you're ready to disclose it.</p>
+                </div>
+                <div class="help-card">
+                    <h3>Buyer Qualification</h3>
+                    <p>We screen inquiries to ensure you only spend time with serious, financially capable buyers. No tire kickers, no time wasters, no information seekers.</p>
+                </div>
+                <div class="help-card">
+                    <h3>Negotiation Support</h3>
+                    <p>Having someone in your corner during negotiations keeps emotions in check and helps you achieve better terms. We've seen what works and what doesn't.</p>
+                </div>
+                <div class="help-card">
+                    <h3>For Buyers: Deal Flow</h3>
+                    <p>We provide access to businesses you won't find publicly listed, with verified financials and realistic seller expectations. No chasing overpriced dreams.</p>
+                </div>
+                <div class="help-card">
+                    <h3>Transaction Coordination</h3>
+                    <p>We manage the countless details between acceptance and closing, keeping all parties on track, deadlines met, and problems solved before they derail the deal.</p>
+                </div>
+                <div class="help-card">
+                    <h3>Realistic Expectations</h3>
+                    <p>We'll tell you the truth about your situation, even when it's not what you want to hear. Better to know now than waste months on an unrealistic outcome.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="cta-section" id="contact">
         <div class="cta-content">
-            <h2 class="cta-title">Ready to Begin Your Journey?</h2>
-            <p class="cta-text">Schedule a confidential consultation to discuss your business goals and explore how we can help you achieve them.</p>
+            <h2 class="cta-title">Let's Talk About Your Situation</h2>
+            <p class="cta-text">Whether you're thinking about selling in the next year or actively looking to buy, a conversation costs nothing. We'll give you honest feedback about what to expect and whether we can help.</p>
             <form class="cta-form" onsubmit="handleSubmit(event)">
                 <input type="email" class="cta-input" placeholder="Enter your email address" required>
-                <button type="submit" class="cta-button">Get In Touch</button>
+                <button type="submit" class="cta-button">Start Conversation</button>
             </form>
         </div>
     </section>
@@ -771,23 +920,23 @@
                     <img src="logo.png" alt="REBB Advisors Logo" style="height: 60px; width: auto; margin-bottom: 1rem;">
                     <div>REBB ADVISORS</div>
                 </div>
-                <p class="footer-description">Expert business brokerage and advisory services for owners ready to transition. We guide you through every step with professionalism and care.</p>
+                <p class="footer-description">Honest guidance for business owners navigating transitions. We focus on realistic outcomes and protecting what you've built.</p>
             </div>
             <div class="footer-section">
-                <h4>Services</h4>
+                <h4>Learn More</h4>
                 <ul class="footer-links">
-                    <li><a href="#services">Business Valuation</a></li>
-                    <li><a href="#services">Sell-Side Advisory</a></li>
-                    <li><a href="#services">Buy-Side Advisory</a></li>
-                    <li><a href="#services">Exit Planning</a></li>
+                    <li><a href="#education">For Sellers</a></li>
+                    <li><a href="#education">For Buyers</a></li>
+                    <li><a href="#timeline">Transaction Process</a></li>
+                    <li><a href="#contact">Schedule Call</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>Contact</h4>
                 <ul class="footer-links">
-                    <li><a href="mailto:info@rebbadvisors.com">info@rebbadvisors.com</a></li>
-                    <li><a href="tel:+1234567890">(123) 456-7890</a></li>
-                    <li><a href="#contact">Schedule Consultation</a></li>
+                    <li><a href="mailto:alex@rebbadvisors.com">alex@rebbadvisors.com</a></li>
+                    <li><a href="tel:+8646306424">(864) 630-6424</a></li>
+                    <li><a href="#contact">Free Consultation</a></li>
                 </ul>
             </div>
         </div>
@@ -801,8 +950,8 @@
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function scrollToServices() {
-            document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+        function scrollToEducation() {
+            document.getElementById('education').scrollIntoView({ behavior: 'smooth' });
         }
 
         function handleSubmit(event) {
