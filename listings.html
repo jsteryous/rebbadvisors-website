@@ -19,6 +19,9 @@
     <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
+    <!-- Supabase Configuration (not committed to GitHub) -->
+    <script src="config.js"></script>
+    
     <style>
         :root {
             --primary: #1a1a1a;
@@ -480,10 +483,10 @@
     <script>
         // ============================================
         // SUPABASE CONFIGURATION
-        // REPLACE THESE WITH YOUR ACTUAL VALUES
+        // Keys are loaded from config.js (not in GitHub)
         // ============================================
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';  // e.g., 'https://xxxxx.supabase.co'
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';  // Your anon/public key
+        const SUPABASE_URL = SUPABASE_CONFIG.url;
+        const SUPABASE_ANON_KEY = SUPABASE_CONFIG.anonKey;
         
         // Initialize Supabase client
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
