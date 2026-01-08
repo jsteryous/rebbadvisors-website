@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REBB Advisors | Business Brokerage & Advisory</title>
+    <meta name="description" content="Expert business brokerage services. We guide business owners through successful exits and acquisitions with precision and care.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #FF3B3B;
+            --accent: #CC2F2F;
+            --light: #fafafa;
+            --text: #1a1a1a;
+            --text-light: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 59, 59, 0.2);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-cta {
+            background: var(--secondary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 59, 59, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 59, 59, 0.08) 0%, rgba(204, 47, 47, 0.04) 100%);
+            clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 300;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero-text h1 strong {
+            font-weight: 600;
+            display: block;
+            color: var(--secondary);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--secondary);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 35, 50, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            padding: 1.2rem 3rem;
+            border: 2px solid var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Section */
+        .stats {
+            max-width: 500px;
+            background: white;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease 0.8s backwards;
+            position: relative;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+        }
+
+        .stat-item {
+            margin-bottom: 2rem;
+        }
+
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .service-card {
+            padding: 3rem 2.5rem;
+            background: white;
+            border: 1px solid rgba(255, 59, 59, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--secondary);
+            transition: width 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .service-card:hover::before {
+            width: 100%;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .service-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 8rem 2rem;
+            background: var(--primary);
+            color: white;
+        }
+
+        .process .section-label {
+            color: var(--secondary);
+        }
+
+        .process .section-title {
+            color: white;
+        }
+
+        .process .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .process-steps {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+
+        .process-step {
+            position: relative;
+            padding-top: 4rem;
+        }
+
+        .step-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 600;
+            color: rgba(255, 59, 59, 0.3);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 60%;
+            height: 150%;
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(-15deg);
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-text {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .cta-form {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cta-input:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .cta-button {
+            padding: 1.2rem 3rem;
+            background: white;
+            color: var(--secondary);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem 2rem;
+            background: var(--primary);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .footer-section h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .stats {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .cta-title {
+                font-size: 2.5rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cta-form {
+                flex-direction: column;
+            }
+
+            .cta-input {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="REBB Advisors Logo" class="logo-img">
+                <span>REBB ADVISORS</span>
+            </div>
+            <button class="nav-cta" onclick="scrollToContact()">Get Started</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    Your Business Deserves
+                    <strong>Exceptional Guidance</strong>
+                </h1>
+                <p>We specialize in guiding business owners through successful exits and strategic acquisitions with precision, discretion, and unmatched expertise.</p>
+                <div class="hero-cta">
+                    <button class="btn-primary" onclick="scrollToContact()">Schedule Consultation</button>
+                    <button class="btn-secondary" onclick="scrollToServices()">Our Services</button>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">$250M+</div>
+                    <div class="stat-label">Transactions Closed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Successful Exits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-header">
+            <div class="section-label">What We Do</div>
+            <h2 class="section-title">Comprehensive Business Solutions</h2>
+            <p class="section-subtitle">From valuation to closing, we provide end-to-end support throughout your business transaction journey.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3 class="service-title">Business Valuation</h3>
+                <p class="service-description">Expert analysis to determine your business's true market value using industry-leading methodologies and comprehensive financial assessment.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤝</div>
+                <h3 class="service-title">Sell-Side Advisory</h3>
+                <p class="service-description">Strategic guidance for business owners ready to exit, including buyer identification, negotiation support, and deal structuring.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3 class="service-title">Buy-Side Advisory</h3>
+                <p class="service-description">Comprehensive support for buyers seeking the right acquisition opportunity, from target identification to due diligence.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3 class="service-title">Exit Planning</h3>
+                <p class="service-description">Long-term strategic planning to maximize business value and ensure a smooth transition when you're ready to exit.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3 class="service-title">Due Diligence</h3>
+                <p class="service-description">Thorough examination of financial, legal, and operational aspects to protect your interests throughout the transaction.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔐</div>
+                <h3 class="service-title">Confidential Marketing</h3>
+                <p class="service-description">Discreet marketing strategies that protect your business identity while reaching qualified buyers in the market.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="section-header">
+            <div class="section-label">Our Process</div>
+            <h2 class="section-title">A Proven Approach to Success</h2>
+            <p class="section-subtitle">Our systematic methodology ensures optimal outcomes at every stage of your business transaction.</p>
+        </div>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <h3 class="step-title">Discovery</h3>
+                <p class="step-description">We begin with an in-depth consultation to understand your goals, timeline, and unique business circumstances.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <h3 class="step-title">Preparation</h3>
+                <p class="step-description">Comprehensive business assessment, valuation, and strategic positioning to maximize transaction value.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <h3 class="step-title">Marketing</h3>
+                <p class="step-description">Confidential outreach to qualified buyers or sellers, leveraging our extensive network and market expertise.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <h3 class="step-title">Closing</h3>
+                <p class="step-description">Expert negotiation, due diligence management, and seamless transaction coordination to successful completion.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Begin Your Journey?</h2>
+            <p class="cta-text">Schedule a confidential consultation to discuss your business goals and explore how we can help you achieve them.</p>
+            <form class="cta-form" onsubmit="handleSubmit(event)">
+                <input type="email" class="cta-input" placeholder="Enter your email address" required>
+                <button type="submit" class="cta-button">Get In Touch</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">
+                    <img src="logo.png" alt="REBB Advisors Logo" style="height: 60px; width: auto; margin-bottom: 1rem;">
+                    <div>REBB ADVISORS</div>
+                </div>
+                <p class="footer-description">Expert business brokerage and advisory services for owners ready to transition. We guide you through every step with professionalism and care.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Business Valuation</a></li>
+                    <li><a href="#services">Sell-Side Advisory</a></li>
+                    <li><a href="#services">Buy-Side Advisory</a></li>
+                    <li><a href="#services">Exit Planning</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:info@rebbadvisors.com">info@rebbadvisors.com</a></li>
+                    <li><a href="tel:+1234567890">(123) 456-7890</a></li>
+                    <li><a href="#contact">Schedule Consultation</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 REBB Advisors. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToServices() {
+            document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            // Replace this with your actual form submission logic
+            // Options: EmailJS, Formspree, your own backend API, etc.
+            alert(`Thank you for your interest! We'll contact you at ${email} soon.`);
+            
+            // You can integrate with services like:
+            // - Formspree: https://formspree.io/
+            // - EmailJS: https://www.emailjs.com/
+            // - Netlify Forms (if hosting on Netlify)
+            // - Your own backend API
+            
+            event.target.reset();
+        }
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
