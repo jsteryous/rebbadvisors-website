@@ -993,17 +993,26 @@
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
             
-            // Send email via EmailJS
-            emailjs.send('service_7v4dycb', 'template_yynnmkc', {
+            // Send email to customer (thank you)
+            const customerEmail = emailjs.send('service_7v4dycb', 'template_yynnmkc', {
                 email: email
-            })
-            .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
+            });
+            
+            // Send email to you (notification)
+            const adminEmail = emailjs.send('service_7v4dycb', 'template_igil6me', {
+                email: email
+            });
+            
+            // Wait for both emails to send
+            Promise.all([customerEmail, adminEmail])
+            .then(function(responses) {
+                console.log('SUCCESS!', responses);
                 alert(`Thank you! We'll contact you at ${email} soon.`);
                 event.target.reset();
                 submitButton.disabled = false;
                 submitButton.textContent = 'Start Conversation';
-            }, function(error) {
+            })
+            .catch(function(error) {
                 console.log('FAILED...', error);
                 alert('Oops! Something went wrong. Please email us directly at alex@rebbadvisors.com');
                 submitButton.disabled = false;
