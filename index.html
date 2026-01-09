@@ -995,9 +995,7 @@
             
             // Send email via EmailJS
             emailjs.send('service_7v4dycb', 'template_yynnmkc', {
-                from_email: email,
-                to_email: 'alex@rebbadvisors.com',
-                message: `New inquiry from: ${email}`
+                email: email
             })
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
