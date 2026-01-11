@@ -70,11 +70,30 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .logo-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2rem;
             font-weight: 600;
             color: var(--primary);
             letter-spacing: 2px;
+        }
+
+        .logo-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .logo-img {
@@ -753,9 +772,12 @@
 <body>
     <header>
         <nav>
-            <a href="index.html" class="logo" style="text-decoration: none; display: flex; align-items: center; gap: 0.8rem;">
+            <a href="index.html" class="logo">
                 <img src="logo.png" alt="REBB Advisors Logo" class="logo-img">
-                <span>REBB ADVISORS</span>
+                <div class="logo-text">
+                    <span class="logo-title">REBB ADVISORS</span>
+                    <span class="logo-subtitle">Real Estate & Business Brokerage</span>
+                </div>
             </a>
             <div style="display: flex; gap: 2rem; align-items: center;">
                 <a href="listings.html" style="color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.3s ease;">Listings</a>
