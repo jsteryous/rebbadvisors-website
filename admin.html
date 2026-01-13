@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | REBB Advisors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Quill Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #006dff;
+            --accent: #0052cc;
+            --light: #f8f6f3;
+            --text: #2d2d2d;
+            --text-light: #6b6b6b;
+            --success: #28a745;
+            --danger: #dc3545;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        /* Login Screen */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-box h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        /* Dashboard */
+        #dashboard {
+            display: none;
+        }
+
+        .dashboard-header {
+            background: white;
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0, 109, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-nav {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .dashboard-nav button {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-nav button.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .dashboard-nav button:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .dashboard-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-published {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-draft {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        /* Editor Styles */
+        .editor-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        #editor {
+            height: 400px;
+            background: white;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .image-preview {
+            max-width: 300px;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            padding: 0.5rem 1rem;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h1>Admin Login</h1>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="passwordInput" placeholder="Enter admin password">
+            </div>
+            <button class="btn btn-primary" onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        
+        <div class="dashboard-header">
+            <h1>REBB Advisors Admin</h1>
+            <p style="color: var(--text-light);">Manage your blog posts and business listings</p>
+            <div class="dashboard-nav">
+                <button class="active" onclick="showSection('blog')">Blog Posts</button>
+                <button onclick="showSection('listings')">Business Listings</button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Blog Section -->
+            <div id="blogSection" class="section active">
+                <div class="section-header">
+                    <h2>Blog Posts</h2>
+                    <button class="btn btn-success" onclick="showBlogEditor()">+ New Blog Post</button>
+                </div>
+
+                <div id="blogList" class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Published Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blogTableBody">
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 2rem;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="blogEditor" style="display: none;">
+                    <div class="editor-container">
+                        <h2 style="margin-bottom: 1.5rem; font-family: 'Cormorant Garamond', serif;">Blog Post Editor</h2>
+                        
+                        <div id="blogAlert"></div>
+
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" id="blogTitle" placeholder="Enter blog post title">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>SEO Meta Description *</label>
+                                <textarea id="blogMeta" placeholder="Brief description for search engines (150-160 characters)" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Author</label>
+                                <input type="text" id="blogAuthor" value="Alex Eckert" placeholder="Author name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Featured Image URL (optional)</label>
+                            <input type="text" id="blogImage" placeholder="https://example.com/image.jpg">
+                            <img id="imagePreview" class="image-preview" style="display: none;">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Content *</label>
+                            <div id="editor"></div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="blogCategory">
+                                    <option value="Business Sales">Business Sales</option>
+                                    <option value="Buying Guide">Buying Guide</option>
+                                    <option value="Market Insights">Market Insights</option>
+                                    <option value="Case Studies">Case Studies</option>
+                                    <option value="Industry News">Industry News</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="blogStatus">
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="editor-toolbar">
+                            <button class="btn btn-success" onclick="saveBlogPost()">Save Post</button>
+                            <button class="btn btn-secondary" onclick="cancelBlogEdit()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listings Section -->
+            <div id="listingsSection" class="section">
+                <div class="section-header">
+                    <h2>Business Listings</h2>
+                    <button class="btn btn-success" onclick="showListingEditor()">+ New Listing</button>
+                </div>
+
+                <div id="listingList" class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Location</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listingTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="listingEditor" style="display: none;">
+                    <div class="editor-container">
+                        <h2 style="margin-bottom: 1.5rem; font-family: 'Cormorant Garamond', serif;">Listing Editor</h2>
+                        
+                        <div id="listingAlert"></div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Listing Number *</label>
+                                <input type="text" id="listingNumber" placeholder="e.g., 1001">
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="listingStatus">
+                                    <option value="active">Active</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="sold">Sold</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Business Title *</label>
+                            <input type="text" id="listingTitle" placeholder="e.g., Established HVAC Company">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Location *</label>
+                            <input type="text" id="listingLocation" placeholder="e.g., Greenville, SC">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Asking Price</label>
+                                <input type="number" id="listingPrice" placeholder="e.g., 500000">
+                            </div>
+                            <div class="form-group">
+                                <label>Annual Revenue</label>
+                                <input type="text" id="listingRevenue" placeholder="e.g., $750K">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cash Flow</label>
+                            <input type="text" id="listingCashFlow" placeholder="e.g., $200K">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="listingDescription" rows="5" placeholder="Brief description of the business..."></textarea>
+                        </div>
+
+                        <div class="editor-toolbar">
+                            <button class="btn btn-success" onclick="saveListing()">Save Listing</button>
+                            <button class="btn btn-secondary" onclick="cancelListingEdit()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        // Initialize Supabase
+        const supabaseClient = window.supabase.createClient(
+            'https://ykuenmwfxecmmqichwit.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrdWVubXdmeGVjbW1xaWNod2l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MTAxMzAsImV4cCI6MjA4MzQ4NjEzMH0.MoJO92cIHwVXKGj7A9NXtCZW-JaKKAPrxxoch_Ga1Qk'
+        );
+
+        // Admin password (in production, use proper authentication)
+        const ADMIN_PASSWORD = 'rebb2026admin';
+
+        // Initialize Quill editor
+        let quill;
+        let editingBlogId = null;
+        let editingListingId = null;
+
+        // Login function
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                loadBlogPosts();
+                loadListings();
+                initializeEditor();
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            location.reload();
+        }
+
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadBlogPosts();
+            loadListings();
+            setTimeout(initializeEditor, 100);
+        }
+
+        // Initialize Quill editor
+        function initializeEditor() {
+            if (quill) return;
+            quill = new Quill('#editor', {
+                theme: 'snow',
+                placeholder: 'Write your blog post here... You can paste from Substack and formatting will be preserved!',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'indent': '-1'}, { 'indent': '+1' }],
+                        ['link', 'image'],
+                        ['clean']
+                    ]
+                }
+            });
+        }
+
+        // Section switching
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.dashboard-nav button').forEach(b => b.classList.remove('active'));
+            
+            if (section === 'blog') {
+                document.getElementById('blogSection').classList.add('active');
+                event.target.classList.add('active');
+                loadBlogPosts();
+            } else if (section === 'listings') {
+                document.getElementById('listingsSection').classList.add('active');
+                event.target.classList.add('active');
+                loadListings();
+            }
+        }
+
+        // Blog Functions
+        async function loadBlogPosts() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('blog_posts')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                const tbody = document.getElementById('blogTableBody');
+                
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem;">No blog posts yet. Create your first one!</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.map(post => `
+                    <tr>
+                        <td><strong>${post.title}</strong></td>
+                        <td><span class="status-badge status-${post.status}">${post.status.toUpperCase()}</span></td>
+                        <td>${new Date(post.published_date || post.created_at).toLocaleDateString()}</td>
+                        <td class="action-buttons">
+                            <button class="btn btn-primary btn-small" onclick="editBlogPost('${post.id}')">Edit</button>
+                            <button class="btn btn-danger btn-small" onclick="deleteBlogPost('${post.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error('Error loading blog posts:', err);
+            }
+        }
+
+        function showBlogEditor() {
+            editingBlogId = null;
+            document.getElementById('blogList').style.display = 'none';
+            document.getElementById('blogEditor').style.display = 'block';
+            document.querySelector('.section-header').style.display = 'none';
+            
+            // Clear form
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogMeta').value = '';
+            document.getElementById('blogAuthor').value = 'Alex Eckert';
+            document.getElementById('blogImage').value = '';
+            document.getElementById('blogCategory').value = 'Business Sales';
+            document.getElementById('blogStatus').value = 'draft';
+            quill.setContents([]);
+            document.getElementById('blogAlert').innerHTML = '';
+        }
+
+        async function editBlogPost(id) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('blog_posts')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+
+                if (data) {
+                    editingBlogId = id;
+                    document.getElementById('blogList').style.display = 'none';
+                    document.getElementById('blogEditor').style.display = 'block';
+                    document.querySelector('.section-header').style.display = 'none';
+                    
+                    document.getElementById('blogTitle').value = data.title;
+                    document.getElementById('blogMeta').value = data.meta_description || '';
+                    document.getElementById('blogAuthor').value = data.author || 'Alex Eckert';
+                    document.getElementById('blogImage').value = data.featured_image || '';
+                    document.getElementById('blogCategory').value = data.category || 'Business Sales';
+                    document.getElementById('blogStatus').value = data.status;
+                    quill.root.innerHTML = data.content;
+                }
+            } catch (err) {
+                console.error('Error loading blog post:', err);
+            }
+        }
+
+        async function saveBlogPost() {
+            const title = document.getElementById('blogTitle').value;
+            const meta = document.getElementById('blogMeta').value;
+            const author = document.getElementById('blogAuthor').value;
+            const image = document.getElementById('blogImage').value;
+            const category = document.getElementById('blogCategory').value;
+            const status = document.getElementById('blogStatus').value;
+            const content = quill.root.innerHTML;
+
+            if (!title || !content || !meta) {
+                showAlert('blogAlert', 'Please fill in all required fields', 'error');
+                return;
+            }
+
+            const postData = {
+                title,
+                meta_description: meta,
+                author,
+                featured_image: image || null,
+                category,
+                status,
+                content,
+                slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+                published_date: status === 'published' ? new Date().toISOString() : null
+            };
+
+            try {
+                if (editingBlogId) {
+                    await supabaseClient
+                        .from('blog_posts')
+                        .update(postData)
+                        .eq('id', editingBlogId);
+                    showAlert('blogAlert', 'Blog post updated successfully!', 'success');
+                } else {
+                    await supabaseClient
+                        .from('blog_posts')
+                        .insert([postData]);
+                    showAlert('blogAlert', 'Blog post created successfully!', 'success');
+                }
+
+                setTimeout(() => {
+                    cancelBlogEdit();
+                    loadBlogPosts();
+                }, 1500);
+            } catch (err) {
+                console.error('Error saving blog post:', err);
+                showAlert('blogAlert', 'Error saving blog post', 'error');
+            }
+        }
+
+        async function deleteBlogPost(id) {
+            if (!confirm('Are you sure you want to delete this blog post?')) return;
+
+            try {
+                await supabaseClient
+                    .from('blog_posts')
+                    .delete()
+                    .eq('id', id);
+                loadBlogPosts();
+            } catch (err) {
+                console.error('Error deleting blog post:', err);
+            }
+        }
+
+        function cancelBlogEdit() {
+            document.getElementById('blogList').style.display = 'block';
+            document.getElementById('blogEditor').style.display = 'none';
+            document.querySelector('.section-header').style.display = 'flex';
+            editingBlogId = null;
+        }
+
+        // Listing Functions
+        async function loadListings() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('listings')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                const tbody = document.getElementById('listingTableBody');
+                
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem;">No listings yet.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.map(listing => {
+                    const price = listing.price ? 
+                        (listing.price >= 1000000 ? '$' + (listing.price / 1000000).toFixed(1) + 'M' : '$' + (listing.price / 1000).toFixed(0) + 'K') 
+                        : 'N/A';
+                    
+                    return `
+                        <tr>
+                            <td><strong>#${listing.listing_number}</strong></td>
+                            <td>${listing.title}</td>
+                            <td>${listing.location}</td>
+                            <td>${price}</td>
+                            <td><span class="status-badge status-${listing.status || 'active'}">${(listing.status || 'active').toUpperCase()}</span></td>
+                            <td class="action-buttons">
+                                <button class="btn btn-primary btn-small" onclick="editListing('${listing.id}')">Edit</button>
+                                <button class="btn btn-danger btn-small" onclick="deleteListing('${listing.id}')">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error('Error loading listings:', err);
+            }
+        }
+
+        function showListingEditor() {
+            editingListingId = null;
+            document.getElementById('listingList').style.display = 'none';
+            document.getElementById('listingEditor').style.display = 'block';
+            document.querySelectorAll('.section-header')[1].style.display = 'none';
+            
+            // Clear form
+            document.getElementById('listingNumber').value = '';
+            document.getElementById('listingTitle').value = '';
+            document.getElementById('listingLocation').value = '';
+            document.getElementById('listingPrice').value = '';
+            document.getElementById('listingRevenue').value = '';
+            document.getElementById('listingCashFlow').value = '';
+            document.getElementById('listingDescription').value = '';
+            document.getElementById('listingStatus').value = 'active';
+            document.getElementById('listingAlert').innerHTML = '';
+        }
+
+        async function editListing(id) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('listings')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+
+                if (data) {
+                    editingListingId = id;
+                    document.getElementById('listingList').style.display = 'none';
+                    document.getElementById('listingEditor').style.display = 'block';
+                    document.querySelectorAll('.section-header')[1].style.display = 'none';
+                    
+                    document.getElementById('listingNumber').value = data.listing_number;
+                    document.getElementById('listingTitle').value = data.title;
+                    document.getElementById('listingLocation').value = data.location;
+                    document.getElementById('listingPrice').value = data.price || '';
+                    document.getElementById('listingRevenue').value = data.revenue || '';
+                    document.getElementById('listingCashFlow').value = data.cash_flow || '';
+                    document.getElementById('listingDescription').value = data.description || '';
+                    document.getElementById('listingStatus').value = data.status || 'active';
+                }
+            } catch (err) {
+                console.error('Error loading listing:', err);
+            }
+        }
+
+        async function saveListing() {
+            const listingData = {
+                listing_number: document.getElementById('listingNumber').value,
+                title: document.getElementById('listingTitle').value,
+                location: document.getElementById('listingLocation').value,
+                price: parseInt(document.getElementById('listingPrice').value) || null,
+                revenue: document.getElementById('listingRevenue').value || null,
+                cash_flow: document.getElementById('listingCashFlow').value || null,
+                description: document.getElementById('listingDescription').value || null,
+                status: document.getElementById('listingStatus').value
+            };
+
+            if (!listingData.listing_number || !listingData.title || !listingData.location) {
+                showAlert('listingAlert', 'Please fill in all required fields', 'error');
+                return;
+            }
+
+            try {
+                if (editingListingId) {
+                    await supabaseClient
+                        .from('listings')
+                        .update(listingData)
+                        .eq('id', editingListingId);
+                    showAlert('listingAlert', 'Listing updated successfully!', 'success');
+                } else {
+                    await supabaseClient
+                        .from('listings')
+                        .insert([listingData]);
+                    showAlert('listingAlert', 'Listing created successfully!', 'success');
+                }
+
+                setTimeout(() => {
+                    cancelListingEdit();
+                    loadListings();
+                }, 1500);
+            } catch (err) {
+                console.error('Error saving listing:', err);
+                showAlert('listingAlert', 'Error saving listing', 'error');
+            }
+        }
+
+        async function deleteListing(id) {
+            if (!confirm('Are you sure you want to delete this listing?')) return;
+
+            try {
+                await supabaseClient
+                    .from('listings')
+                    .delete()
+                    .eq('id', id);
+                loadListings();
+            } catch (err) {
+                console.error('Error deleting listing:', err);
+            }
+        }
+
+        function cancelListingEdit() {
+            document.getElementById('listingList').style.display = 'block';
+            document.getElementById('listingEditor').style.display = 'none';
+            document.querySelectorAll('.section-header')[1].style.display = 'flex';
+            editingListingId = null;
+        }
+
+        // Helper function for alerts
+        function showAlert(elementId, message, type) {
+            const alertDiv = document.getElementById(elementId);
+            alertDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                alertDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        // Image preview
+        document.getElementById('blogImage').addEventListener('input', function(e) {
+            const preview = document.getElementById('imagePreview');
+            if (e.target.value) {
+                preview.src = e.target.value;
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
