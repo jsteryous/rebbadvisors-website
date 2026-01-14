@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | REBB Advisors</title>
-    <meta name="description" content="Insights and guidance for buying and selling businesses. Real talk from real experience.">
+    <title id="pageTitle">Blog Post | REBB Advisors</title>
+    <meta name="description" id="pageDescription" content="Insights and guidance for buying and selling businesses.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" id="ogTitle" content="">
+    <meta property="og:description" id="ogDescription" content="">
+    <meta property="og:image" id="ogImage" content="">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" id="twitterTitle" content="">
+    <meta property="twitter:description" id="twitterDescription" content="">
+    <meta property="twitter:image" id="twitterImage" content="">
     
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +39,7 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text);
             background: var(--light);
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         header {
@@ -95,30 +107,160 @@
             text-decoration: none;
         }
 
-        .hero {
-            padding: 5rem 2rem 4rem;
-            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
-            text-align: center;
+        .article-header {
+            max-width: 900px;
+            margin: 4rem auto 2rem;
+            padding: 0 2rem;
         }
 
-        .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 4rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
         }
 
-        .hero p {
-            font-size: 1.2rem;
+        .back-link:hover {
+            gap: 0.3rem;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
             color: var(--text-light);
-            max-width: 700px;
-            margin: 0 auto;
         }
 
-        .blog-container {
+        .article-category {
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-author {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .featured-image {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem 6rem;
+            width: 100%;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-content {
+            max-width: 750px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Styling for rich content from Quill editor */
+        .article-content h1,
+        .article-content h2,
+        .article-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--primary);
+            margin: 2.5rem 0 1rem;
+            font-weight: 600;
+        }
+
+        .article-content h1 { font-size: 2.5rem; }
+        .article-content h2 { font-size: 2rem; }
+        .article-content h3 { font-size: 1.6rem; }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content strong {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .article-content em {
+            font-style: italic;
+        }
+
+        .article-content a {
+            color: var(--secondary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .article-content a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 1.5rem 0 1.5rem 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.8rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--secondary);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .article-content code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .article-content pre {
+            background: #f4f4f4;
+            padding: 1.5rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .article-content pre code {
+            background: none;
+            padding: 0;
         }
 
         .loading-wrapper {
@@ -141,92 +283,18 @@
             100% { transform: rotate(360deg); }
         }
 
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 3rem;
-        }
-
-        .blog-card {
-            background: white;
-            border: 1px solid rgba(0, 109, 255, 0.15);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .blog-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
-        }
-
-        .blog-content {
-            padding: 2rem;
-        }
-
-        .blog-meta {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
-        .blog-category {
-            color: var(--secondary);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .blog-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            line-height: 1.3;
-        }
-
-        .blog-excerpt {
-            color: var(--text-light);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .read-more {
-            color: var(--secondary);
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: gap 0.3s ease;
-        }
-
-        .read-more:hover {
-            gap: 1rem;
-        }
-
-        .empty-state {
+        .error-message {
             text-align: center;
             padding: 4rem 2rem;
         }
 
-        .empty-state h2 {
+        .error-message h2 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2rem;
             margin-bottom: 1rem;
         }
 
-        footer { padding: 4rem 2rem 2rem; background: var(--primary); color: rgba(255, 255, 255, 0.7); }
+        footer { padding: 4rem 2rem 2rem; background: var(--primary); color: rgba(255, 255, 255, 0.7); margin-top: 4rem; }
         .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; }
         .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem; }
         .footer-links { list-style: none; }
@@ -237,8 +305,8 @@
 
         @media (max-width: 768px) {
             .footer-content { grid-template-columns: 1fr; text-align: center; }
-            .hero h1 { font-size: 2.5rem; }
-            .blog-grid { grid-template-columns: 1fr; }
+            .article-title { font-size: 2.5rem; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -249,7 +317,7 @@
                 <img src="logo.png" alt="REBB Advisors Logo" class="logo-img">
                 <div class="logo-text">
                     <span class="logo-title">REBB ADVISORS</span>
-                    <span class="logo-subtitle">Real Estate & Business Brokerage</span>
+                    <span class="logo-subtitle">Real Estate &amp; Business Brokerage</span>
                 </div>
             </a>
             <div class="nav-links">
@@ -261,23 +329,34 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Insights & Guidance</h1>
-        <p>Real talk about buying and selling businesses. No fluff, just what you need to know.</p>
-    </section>
-
     <div class="loading-wrapper" id="loading">
         <div class="loader"></div>
-        <p>Loading posts...</p>
+        <p>Loading article...</p>
     </div>
 
-    <section class="blog-container">
-        <div class="blog-grid" id="blogGrid"></div>
-        <div class="empty-state" id="emptyState" style="display: none;">
-            <h2>Coming Soon</h2>
-            <p>We're working on bringing you valuable insights. Check back soon or subscribe to our <a href="https://substack.com/@rebbadvisors" target="_blank" style="color: var(--secondary);">Substack</a>.</p>
+    <div id="articleContainer" style="display: none;">
+        <article class="article-header">
+            <a href="blog.html" class="back-link">← Back to Blog</a>
+            <div class="article-meta">
+                <span class="article-category" id="articleCategory"></span>
+                <span>•</span>
+                <span id="articleDate"></span>
+            </div>
+            <h1 class="article-title" id="articleTitle"></h1>
+            <p class="article-author">By <span id="articleAuthor"></span></p>
+        </article>
+
+        <div class="featured-image" id="featuredImageContainer" style="display: none;">
+            <img id="featuredImage" alt="">
         </div>
-    </section>
+
+        <div class="article-content" id="articleContent"></div>
+    </div>
+
+    <div class="error-message" id="errorMessage" style="display: none;">
+        <h2>Article Not Found</h2>
+        <p>Sorry, we couldn't find that article. <a href="blog.html" style="color: var(--secondary);">Return to blog</a></p>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -302,7 +381,7 @@
             <div class="footer-section">
                 <h4>Contact</h4>
                 <ul class="footer-links">
-                    <li><a href="mailto:alex@rebbadvisors.com">alex@rebbadvisors.com</a></li>
+                    <li><a href="/cdn-cgi/l/email-protection#8dece1e8f5cdffe8efefece9fbe4fee2fffea3eee2e0"><span class="__cf_email__" data-cfemail="dabbb6bfa29aa8bfb8b8bbbeacb3a9b5a8a9f4b9b5b7">[email&#160;protected]</span></a></li>
                     <li><a href="tel:+8646306424">(864) 630-6424</a></li>
                     <li><a href="index.html#contact">Free Consultation</a></li>
                 </ul>
@@ -313,7 +392,7 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const supabaseClient = window.supabase.createClient(
             'https://ykuenmwfxecmmqichwit.supabase.co',
@@ -321,61 +400,61 @@
         );
 
         async function loadBlogPosts() {
-            try {
-                const { data, error } = await supabaseClient
-                    .from('blog_posts')
-                    .select('*')
-                    .eq('status', 'published')
-                    .order('published_date', { ascending: false });
+    try {
+        const { data, error } = await supabaseClient
+            .from('blog_posts')
+            .select('*')
+            .eq('status', 'published')
+            .order('published_date', { ascending: false });
 
-                document.getElementById('loading').style.display = 'none';
+        document.getElementById('loading').style.display = 'none';
 
-                if (error || !data || data.length === 0) {
-                    document.getElementById('emptyState').style.display = 'block';
-                    return;
-                }
-
-                const grid = document.getElementById('blogGrid');
-                data.forEach(post => {
-                    const excerpt = stripHtml(post.content).substring(0, 180) + '...';
-                    const publishDate = new Date(post.published_date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-
-                    const card = document.createElement('div');
-                    card.className = 'blog-card';
-                    card.onclick = () => window.location.href = `blog-post.html?slug=${post.slug}`;
-                    
-                    card.innerHTML = `
-                        ${post.featured_image ? `<img src="${post.featured_image}" alt="${post.title}" class="blog-image">` : '<div class="blog-image"></div>'}
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span class="blog-category">${post.category || 'Business'}</span>
-                                <span>•</span>
-                                <span>${publishDate}</span>
-                            </div>
-                            <h3 class="blog-title">${post.title}</h3>
-                            <p class="blog-excerpt">${post.meta_description || excerpt}</p>
-                            <a href="blog-post.html?slug=${post.slug}" class="read-more">Read More →</a>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            } catch (err) {
-                console.error('Error loading blog posts:', err);
-                document.getElementById('loading').innerHTML = 'Error loading posts.';
-            }
+        if (error || !data || data.length === 0) {
+            document.getElementById('emptyState').style.display = 'block';
+            return;
         }
 
-        function stripHtml(html) {
-            const tmp = document.createElement('div');
-            tmp.innerHTML = html;
-            return tmp.textContent || tmp.innerText || '';
-        }
+        const grid = document.getElementById('blogGrid');
+        data.forEach(post => {
+            const excerpt = stripHtml(post.content).substring(0, 180) + '...';
+            const publishDate = new Date(post.published_date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
 
-        loadBlogPosts();
-    </script>
+            const card = document.createElement('div');
+            card.className = 'blog-card';
+            card.onclick = () => window.location.href = `blog-post.html?slug=${post.slug}`;
+            
+            card.innerHTML = `
+                ${post.featured_image ? `<img src="${post.featured_image}" alt="${post.title}" class="blog-image">` : '<div class="blog-image"></div>'}
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">${post.category || 'Business'}</span>
+                        <span>•</span>
+                        <span>${publishDate}</span>
+                    </div>
+                    <h3 class="blog-title">${post.title}</h3>
+                    <p class="blog-excerpt">${post.meta_description || excerpt}</p>
+                    <a href="blog-post.html?slug=${post.slug}" class="read-more">Read More →</a>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    } catch (err) {
+        console.error('Error loading blog posts:', err);
+        document.getElementById('loading').innerHTML = 'Error loading posts.';
+    }
+}
+
+function stripHtml(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+}
+
+loadBlogPosts();
+</script>
 </body>
 </html>
