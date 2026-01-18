@@ -6,6 +6,25 @@
     <title>Blog | REBB Advisors</title>
     <meta name="description" content="Insights and guidance for buying and selling businesses. Real talk from real experience.">
     
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="business broker blog, selling business tips, buying business advice, business valuation guide, business sales insights">
+    <meta name="author" content="REBB Advisors">
+    <link rel="canonical" href="https://rebbadvisors.com/blog.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rebbadvisors.com/blog.html">
+    <meta property="og:title" content="Blog | REBB Advisors">
+    <meta property="og:description" content="Insights and guidance for buying and selling businesses. Real talk from real experience.">
+    <meta property="og:image" content="https://rebbadvisors.com/logo.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rebbadvisors.com/blog.html">
+    <meta property="twitter:title" content="Blog | REBB Advisors">
+    <meta property="twitter:description" content="Insights and guidance for buying and selling businesses. Real talk from real experience.">
+    <meta property="twitter:image" content="https://rebbadvisors.com/logo.png">
+    
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -241,6 +260,34 @@
         .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 3rem; padding-top: 2rem; text-align: center; }
 
         @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .logo {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-links, div[style*="display: flex"] {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem !important;
+            }
+
+            .nav-links a, a[href*="listings"], a[href*="blog"] {
+                font-size: 0.9rem;
+            }
+
+            .nav-cta {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+
             .footer-content { grid-template-columns: 1fr; text-align: center; }
             .hero h1 { font-size: 2.5rem; }
             .blog-grid { grid-template-columns: 1fr; }
