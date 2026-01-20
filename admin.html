@@ -365,6 +365,7 @@
             <div class="dashboard-nav">
                 <button class="active" onclick="showSection('blog')">Blog Posts</button>
                 <button onclick="showSection('listings')">Business Listings</button>
+                <button onclick="showSection('emails')">Email List</button>
             </div>
         </div>
 
@@ -541,6 +542,51 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Email List Section -->
+            <div id="emailsSection" class="section">
+                <div class="section-header">
+                    <h2>Email Marketing List</h2>
+                    <button class="btn btn-success" onclick="exportEmailsCSV()">Export to CSV</button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); border-left: 4px solid var(--secondary);">
+                        <div style="font-size: 2rem; font-weight: 600; color: var(--secondary);" id="totalEmails">-</div>
+                        <div style="font-size: 0.9rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px;">Total Emails</div>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); border-left: 4px solid var(--success);">
+                        <div style="font-size: 2rem; font-weight: 600; color: var(--success);" id="thisMonth">-</div>
+                        <div style="font-size: 0.9rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px;">This Month</div>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); border-left: 4px solid var(--accent);">
+                        <div style="font-size: 2rem; font-weight: 600; color: var(--accent);" id="thisWeek">-</div>
+                        <div style="font-size: 0.9rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px;">This Week</div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <input type="text" id="emailSearch" placeholder="Search emails..." style="max-width: 400px;">
+                </div>
+
+                <div id="emailList" class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Source</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="emailTableBody">
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 2rem;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -623,6 +669,10 @@
                 document.getElementById('listingsSection').classList.add('active');
                 event.target.classList.add('active');
                 loadListings();
+            } else if (section === 'emails') {
+                document.getElementById('emailsSection').classList.add('active');
+                event.target.classList.add('active');
+                loadEmails();
             }
         }
 
@@ -937,6 +987,108 @@
             } else {
                 preview.style.display = 'none';
             }
+        });
+
+        // Email List Functions
+        let allEmails = [];
+
+        async function loadEmails() {
+            const tbody = document.getElementById('emailTableBody');
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem;">Loading...</td></tr>';
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('email_signups')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allEmails = data || [];
+                
+                if (allEmails.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem;">No emails captured yet. They will appear here when people sign up through your website.</td></tr>';
+                    updateEmailStats(allEmails);
+                    return;
+                }
+
+                displayEmails(allEmails);
+                updateEmailStats(allEmails);
+
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 2rem; color: var(--danger);">Error loading emails: ${err.message}</td></tr>`;
+                console.error('Error:', err);
+            }
+        }
+
+        function displayEmails(emails) {
+            const tbody = document.getElementById('emailTableBody');
+            tbody.innerHTML = emails.map(signup => {
+                const date = new Date(signup.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                return `
+                    <tr>
+                        <td><strong>${signup.email}</strong></td>
+                        <td><span class="status-badge" style="background: var(--light); color: var(--secondary);">${signup.source || 'unknown'}</span></td>
+                        <td>${date}</td>
+                        <td>${signup.status || 'active'}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateEmailStats(emails) {
+            const now = new Date();
+            const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const thisWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+            const monthCount = emails.filter(e => new Date(e.created_at) >= thisMonth).length;
+            const weekCount = emails.filter(e => new Date(e.created_at) >= thisWeek).length;
+
+            document.getElementById('totalEmails').textContent = emails.length;
+            document.getElementById('thisMonth').textContent = monthCount;
+            document.getElementById('thisWeek').textContent = weekCount;
+        }
+
+        function exportEmailsCSV() {
+            if (allEmails.length === 0) {
+                alert('No emails to export');
+                return;
+            }
+
+            const csv = [
+                ['Email', 'Source', 'Date', 'Status'].join(','),
+                ...allEmails.map(e => [
+                    e.email,
+                    e.source || '',
+                    new Date(e.created_at).toISOString(),
+                    e.status || 'active'
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `rebb-emails-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Search functionality
+        document.getElementById('emailSearch').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allEmails.filter(email => 
+                email.email.toLowerCase().includes(query) ||
+                (email.source && email.source.toLowerCase().includes(query))
+            );
+            displayEmails(filtered);
         });
     </script>
 </body>

@@ -1205,8 +1205,15 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
+        // Initialize Supabase
+        const supabaseClient = window.supabase.createClient(
+            'https://ykuenmwfxecmmqichwit.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrdWVubXdmeGVjbW1xaWNod2l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MTAxMzAsImV4cCI6MjA4MzQ4NjEzMH0.MoJO92cIHwVXKGj7A9NXtCZW-JaKKAPrxxoch_Ga1Qk'
+        );
+        
         // Initialize EmailJS
         emailjs.init('KwVs2mRtktXE3-Vf7');
 
@@ -1218,7 +1225,7 @@
             document.getElementById('education').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function handleSubmit(event) {
+        async function handleSubmit(event) {
             event.preventDefault();
             const email = event.target.querySelector('input[type="email"]').value;
             const submitButton = event.target.querySelector('button[type="submit"]');
@@ -1227,31 +1234,48 @@
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
             
-            // Send email to customer (thank you)
-            const customerEmail = emailjs.send('service_7v4dycb', 'template_yynnmkc', {
-                email: email
-            });
-            
-            // Send email to you (notification)
-            const adminEmail = emailjs.send('service_7v4dycb', 'template_igil6me', {
-                email: email
-            });
-            
-            // Wait for both emails to send
-            Promise.all([customerEmail, adminEmail])
-            .then(function(responses) {
-                console.log('SUCCESS!', responses);
+            try {
+                // Save email to Supabase first
+                const { data, error } = await supabaseClient
+                    .from('email_signups')
+                    .insert([
+                        { 
+                            email: email,
+                            source: 'contact_form',
+                            user_agent: navigator.userAgent
+                        }
+                    ]);
+                
+                if (error) {
+                    console.error('Supabase error:', error);
+                    // Continue anyway - we don't want to block the email sending
+                }
+                
+                // Send email to customer (thank you)
+                const customerEmail = emailjs.send('service_7v4dycb', 'template_yynnmkc', {
+                    email: email
+                });
+                
+                // Send email to you (notification)
+                const adminEmail = emailjs.send('service_7v4dycb', 'template_igil6me', {
+                    email: email
+                });
+                
+                // Wait for both emails to send
+                await Promise.all([customerEmail, adminEmail]);
+                
+                console.log('SUCCESS!');
                 alert(`Thank you! We'll contact you at ${email} soon.`);
                 event.target.reset();
                 submitButton.disabled = false;
                 submitButton.textContent = 'Start Conversation';
-            })
-            .catch(function(error) {
+                
+            } catch (error) {
                 console.log('FAILED...', error);
                 alert('Oops! Something went wrong. Please email us directly at alex@rebbadvisors.com');
                 submitButton.disabled = false;
                 submitButton.textContent = 'Start Conversation';
-            });
+            }
         }
 
         // Smooth scroll for all anchor links
