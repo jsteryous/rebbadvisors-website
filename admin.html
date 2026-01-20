@@ -997,14 +997,27 @@
             tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem;">Loading...</td></tr>';
 
             try {
-                const { data, error } = await supabaseClient
-                    .from('email_signups')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                // Use the secure Edge Function instead of direct Supabase query
+                const response = await fetch('https://ykuenmwfxecmmqichwit.supabase.co/functions/v1/get-emails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-password': ADMIN_PASSWORD,
+                        'Authorization': `Bearer ${supabaseClient.supabaseKey}`
+                    }
+                });
 
-                if (error) throw error;
+                if (!response.ok) {
+                    throw new Error('Failed to fetch emails');
+                }
 
-                allEmails = data || [];
+                const result = await response.json();
+                
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                allEmails = result.data || [];
                 
                 if (allEmails.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem;">No emails captured yet. They will appear here when people sign up through your website.</td></tr>';
