@@ -31,6 +31,9 @@
     <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
+    <!-- Preload critical assets -->
+    <link rel="preload" href="logo.png" as="image" type="image/png">
+    
     <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YY5W50EFT7"></script>
 <script>
@@ -42,7 +45,9 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
     <style>
         :root {
             --primary: #2C3E50;
@@ -877,7 +882,7 @@
     <header>
         <nav>
             <a href="index.html" class="logo">
-                <img src="logo.png" alt="REBB Advisors - Business Brokerage - Lighthouse and whale logo" class="logo-img">
+                <img src="logo.png" alt="REBB Advisors - Business Brokerage - Lighthouse and whale logo" class="logo-img" fetchpriority="high" width="200" height="150">
                 <div class="logo-text">
                     <span class="logo-title">REBB ADVISORS</span>
                     <span class="logo-subtitle">Real Business Brokerage</span>
@@ -1177,7 +1182,7 @@
         <div class="footer-content">
             <div>
                 <div class="footer-brand">
-                    <img src="logo.png" alt="REBB Advisors - Business Brokerage - Lighthouse and whale logo" style="height: 60px; width: auto; margin-bottom: 1rem;">
+                    <img src="logo.png" alt="REBB Advisors - Business Brokerage - Lighthouse and whale logo" style="height: 60px; width: auto; margin-bottom: 1rem;" loading="lazy" width="80" height="60">
                     <div>REBB ADVISORS</div>
                 </div>
                 <p class="footer-description">Honest guidance for business owners navigating transitions. We focus on realistic outcomes and protecting what you've built.</p>
@@ -1205,17 +1210,23 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        // Initialize Supabase
-        const supabaseClient = window.supabase.createClient(
-            'https://ykuenmwfxecmmqichwit.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrdWVubXdmeGVjbW1xaWNod2l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MTAxMzAsImV4cCI6MjA4MzQ4NjEzMH0.MoJO92cIHwVXKGj7A9NXtCZW-JaKKAPrxxoch_Ga1Qk'
-        );
-        
-        // Initialize EmailJS
-        emailjs.init('KwVs2mRtktXE3-Vf7');
+        // Wait for deferred scripts to load
+        window.addEventListener('load', function() {
+            // Initialize Supabase
+            const supabaseClient = window.supabase.createClient(
+                'https://ykuenmwfxecmmqichwit.supabase.co',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrdWVubXdmeGVjbW1xaWNod2l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MTAxMzAsImV4cCI6MjA4MzQ4NjEzMH0.MoJO92cIHwVXKGj7A9NXtCZW-JaKKAPrxxoch_Ga1Qk'
+            );
+            
+            // Initialize EmailJS
+            emailjs.init('KwVs2mRtktXE3-Vf7');
+            
+            // Make them available globally for form submission
+            window.supabaseClient = supabaseClient;
+        });
 
         function scrollToContact() {
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
@@ -1236,7 +1247,7 @@
             
             try {
                 // Save email to Supabase first
-                const { data, error } = await supabaseClient
+                const { data, error } = await window.supabaseClient
                     .from('email_signups')
                     .insert([
                         { 
